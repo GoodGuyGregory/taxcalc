@@ -1,0 +1,235 @@
+<body>
+
+
+    <div class="container text-center" style="font-weight: bold;">
+    </div>
+
+    <div class="container"
+        style="background-color: #e8e3e3; padding-left: 10px; padding-right: 10px; padding-top: 5px; padding-bottom: 10px;">
+        <p class="lead">Please use the form below to calculate about how much your property tax bill will be impacted if
+            the new referendum is passed. In order to use the calculator, you will need to know the <strong>GAV - Gross
+                Assessed Value</strong> of your property.</p>
+        <div class="well well-sm">
+            <div class="row">
+            </div>
+        </div>
+        <div class="tax-result-container" style="display: none;">
+            <div class="row">
+                <div class="col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8 text-center">
+                    <div class="tax-result">
+                        <h3>$ <span id="result"></span> Annual amount you pay currently for operating referendum </h3>
+                        <h3>$ <span id="result2"></span> Your proposed annual amount under new referendum rate</h3>
+                    </div>
+                    <p>
+                        <small>
+                            <em>These values are only estimates, and are based on the MAXIMUM levy amount.</em><br>
+                            The information on which these calculations are based has been obtained from sources
+                            believed to be reliable but it is not necessarily complete and is not guaranteed.
+                            Any tax increases projected are approximate.
+                        </small>
+                    </p>
+                    <br>
+                </div>
+            </div>
+        </div>
+        <div class="alert alert-danger" style="display: none;">
+            <strong>Error!</strong> Only numbers can be used in GAV box.
+        </div>
+        <form method="POST" action="http://milleryes.org/taximpact2" accept-charset="UTF-8" id="calculator-form"><input
+                name="_token" type="hidden" value="ZoymRH75LAT8TkJvnSwcAGX1qwG4TwUag5f7HSld">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="well well-sm">
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label for="gav">Your Gross Assessed Value:</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">$</span>
+                                <input id="gav" class="form-control" required="required" name="gav" type="text">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="well well-sm">
+                        <div class="form-group">
+                            <div class="btn-group" role="group" aria-label="Property Type">
+                                <button type="button" class="btn btn-info active" id="residential">Residential</button>
+                                <button type="button" class="btn btn-info" id="commercial">Commercial</button>
+                            </div>
+                            <p class="help-block">For residential rental property or a second home, please select
+                                'Commercial.'</p>
+                        </div>
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label class="checkbox" id="mortgage-check">
+                                <input id="mortgage" name="mortgage" type="checkbox" value="mortgage">
+                                I have mortgage on this property.
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <input class="btn btn-primary" type="submit" value="Calculate My Tax Impact">
+        </form>
+    </div>
+
+
+    <div class="container">
+    </div>
+
+    <script src="app.min.js"></script>
+    <!--Old Cost-->
+    <script>
+        $(document).ready(function () {
+            // Residential/Commerical toggle.
+            $("#residential").on('click', function () {
+                $("#residential").addClass('active');
+                $("#commercial").removeClass('active');
+
+                $('#mortgage-check').show();
+            });
+
+            $("#commercial").on('click', function () {
+                $("#residential").removeClass('active');
+                $("#commercial").addClass('active');
+
+                $('#mortgage-check').hide();
+                $('#mortgage').prop('checked', false);
+            });
+
+            // Form submit, do processing.
+            $('#calculator-form').on('submit', function (event) {
+                event.preventDefault();
+                $('.alert-danger').hide();
+
+                // Replace all commas in textbox.
+                $('#gav').val($('#gav').val().replace(/,/g, ""));
+
+                // Make sure the textbox is numeric.
+                if (!$.isNumeric($('#gav').val())) {
+                    $('.alert-danger').show();
+                    $('.tax-result-container').hide();
+                    return;
+                }
+
+                // Variables.
+                var tax_rate = 0.1890;
+                var min_gav = 49850;
+                var gav = $('#gav').val();
+                var mortgage = 0;
+
+                if (gav > min_gav) {
+                    if ($('#residential').hasClass('active')) {
+                        // Residential Formula.
+                        // Have $3,000 be subtracted if the mortgage box is checked.
+                        if ($('#mortgage').prop('checked')) {
+                            mortgage = 3000;
+                        }
+
+                        // If GAV < $650,000.
+                        if (gav < 650000) {
+                            net_av = (((gav - 45000) * 0.65) - mortgage) / 100;
+                        }
+                        else if (gav >= 650000) {
+                            net_av = (((gav - 45000) * 0.75) - mortgage) / 100;
+                        }
+                    }
+                    else if ($('#commercial').hasClass('active')) {
+                        // Commercial Formula.
+                        net_av = gav / 100;
+                    }
+
+                    // Multiply Net AV by the Tax Rate.
+                    result = net_av * tax_rate;
+                }
+                else {
+                    result = 0;
+                }
+
+                // Output.
+                $('#result').text(result.toFixed(2));
+
+                $('.tax-result-container').show();
+            });
+        });
+    </script>
+
+    <!--New Cost-->
+    <script>
+        $(document).ready(function () {
+            // Residential/Commerical toggle.
+            $("#residential").on('click', function () {
+                $("#residential").addClass('active');
+                $("#commercial").removeClass('active');
+
+                $('#mortgage-check').show();
+            });
+
+            $("#commercial").on('click', function () {
+                $("#residential").removeClass('active');
+                $("#commercial").addClass('active');
+
+                $('#mortgage-check').hide();
+                $('#mortgage').prop('checked', false);
+            });
+
+            // Form submit, do processing.
+            $('#calculator-form').on('submit', function (event) {
+                event.preventDefault();
+                $('.alert-danger').hide();
+
+                // Replace all commas in textbox.
+                $('#gav').val($('#gav').val().replace(/,/g, ""));
+
+                // Make sure the textbox is numeric.
+                if (!$.isNumeric($('#gav').val())) {
+                    $('.alert-danger').show();
+                    $('.tax-result-container').hide();
+                    return;
+                }
+
+                // Variables.
+                var tax_rate = 0.3700;
+                var min_gav = 49850;
+                var gav = $('#gav').val();
+                var mortgage = 0;
+
+                if (gav > min_gav) {
+                    if ($('#residential').hasClass('active')) {
+                        // Residential Formula.
+                        // Have $3,000 be subtracted if the mortgage box is checked.
+                        if ($('#mortgage').prop('checked')) {
+                            mortgage = 3000;
+                        }
+
+                        // If GAV < $650,000.
+                        if (gav < 650000) {
+                            net_av = (((gav - 45000) * 0.65) - mortgage) / 100;
+                        }
+                        else if (gav >= 650000) {
+                            net_av = (((gav - 45000) * 0.75) - mortgage) / 100;
+                        }
+                    }
+                    else if ($('#commercial').hasClass('active')) {
+                        // Commercial Formula.
+                        net_av = gav / 100;
+                    }
+
+                    // Multiply Net AV by the Tax Rate.
+                    result2 = net_av * tax_rate;
+                    difference = result - result2;
+                }
+                else {
+                    result2 = 0;
+                }
+
+                // Output.
+                $('#result2').text(result2.toFixed(2));
+                $('#difference').text(difference.toFixed(2));
+                $('.tax-result-container').show();
+            });
+        });
+    </script>
+
+
+
+</body>
