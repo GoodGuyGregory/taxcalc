@@ -1,5 +1,14 @@
 <body>
+    <!-- Inline Styles: CSS -->
+    <style>
+        .btn-group {
+            margin-bottom: 10px;
+        }
 
+        .taxValue {
+            margin: 10px;
+        }
+    </style>
 
     <div class="container text-center" style="font-weight: bold;">
     </div>
@@ -37,24 +46,25 @@
         <div class="alert alert-danger" style="display: none;">
             <strong>Error!</strong> Only numbers can be used in GAV box.
         </div>
-        <div id="calculator-form"><input>
+        <div id="calculator-form">
             <div class="row">
                 <div class="col-sm-6">
                     <div class="well well-sm">
                         <div class="form-group" style="margin-bottom: 0;">
                             <label for="gav">Your Gross Assessed Value:</label>
-                            <div class="input-group">
-                                <span class="input-group-addon">$</span>
-                                <input id="gav" class="form-control" required="required" name="gav" type="text">
-                            </div>
+                            <br>
+                            <span class="input-group-addon">$</span>
+                            <input id="gav" class="taxValue" type="text">
+                            <br>
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <div class="well well-sm">
-                        <div class="form-group">
+                        <div class="btn-group">
                             <div class="btn-group" role="group" aria-label="Property Type">
-                                <button type="button" class="btn btn-info active" id="residential">Residential</button>
+
+                                <button type="button" class="btn btn-info" id="residential">Residential</button>
                                 <button type="button" class="btn btn-info" id="commercial">Commercial</button>
                             </div>
 
@@ -65,7 +75,7 @@
                     </div>
                 </div>
             </div>
-            <input class="btn btn-primary" type="submit" value="Calculate My Tax Impact">
+            <button id="calcTax">Calculate My Tax Impact</button>
             </form>
         </div>
 
