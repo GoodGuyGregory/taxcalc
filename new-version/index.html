@@ -1,84 +1,74 @@
-<body>
-    <!-- Inline Styles: CSS -->
-    <style>
-        .btn-group {
-            margin-bottom: 10px;
-        }
+<div class="container text-center">
+</div>
 
-        .taxValue {
-            margin: 10px;
-        }
-    </style>
+<div class="container">
+    <p class="lead">Please use the form below to calculate about how much your property tax bill will be impacted if
+        the new referendum is passed. In order to use the calculator, you will need to know the <strong>GAV - Gross
+            Assessed Value</strong> of your property.</p>
+    <!-- initial development for the  -->
+    <div class="well well-sm">
+        <div class="row">
 
-    <div class="container text-center" style="font-weight: bold;">
+        </div>
     </div>
-
-    <div class="container"
-        style="background-color: #e8e3e3; padding-left: 10px; padding-right: 10px; padding-top: 5px; padding-bottom: 10px;">
-        <p class="lead">Please use the form below to calculate about how much your property tax bill will be impacted if
-            the new referendum is passed. In order to use the calculator, you will need to know the <strong>GAV - Gross
-                Assessed Value</strong> of your property.</p>
-        <!-- initial development for the calculator application  -->
-        <div class="well well-sm">
-            <div class="row">
-
-            </div>
-        </div>
-        <div class="tax-result-container" style="display: none;">
-            <div class="row">
-                <div class="col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8 text-center">
-                    <div class="tax-result">
-                        <h3>$ <span id="result"></span> Annual amount you pay currently for operating referendum </h3>
-                        <h3>$ <span id="result2"></span> Your proposed annual amount under new referendum rate</h3>
-                    </div>
-                    <p>
-                        <small>
-                            <em>These values are only estimates, and are based on the MAXIMUM levy amount.</em><br>
-                            The information on which these calculations are based has been obtained from sources
-                            believed to be reliable but it is not necessarily complete and is not guaranteed.
-                            Any tax increases projected are approximate.
-                        </small>
-                    </p>
-                    <br>
+    <div class="tax-result-container" style="display: none;">
+        <div class="row">
+            <div class="col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8 text-center">
+                <div class="tax-result">
+                    <h3>$ <span id="result"></span> Approximate impact to your annual tax payment for the safety
+                        referendum </h3>
                 </div>
+                <p>
+                    <small>
+                        <em>These values are only estimates, and are based on the MAXIMUM levy amount.</em><br>
+                        The information on which these calculations are based has been obtained from sources
+                        believed to be reliable but it is not necessarily complete and is not guaranteed.
+                        Any tax increases projected are approximate.
+                    </small>
+                </p>
+                <br>
             </div>
         </div>
-        <div class="alert alert-danger" style="display: none;">
-            <strong>Error!</strong> Only numbers can be used in GAV box.
-        </div>
-        <div id="calculator-form">
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="well well-sm">
-                        <div class="form-group" style="margin-bottom: 0;">
-                            <label for="gav">Your Gross Assessed Value:</label>
-                            <br>
+    </div>
+    <div class="alert alert-danger" style="display: none;">
+        <strong>Error!</strong> Only numbers can be used in GAV box.
+    </div>
+    <form method="POST" action="" accept-charset="UTF-8" id="calculator-form"><input name="_token" type="hidden">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="well well-sm">
+                    <div class="form-group">
+                        <label for="gav">Your Gross Assessed Value:</label>
+                        <div class="input-group">
                             <span class="input-group-addon">$</span>
-                            <input id="gav" class="taxValue" type="text">
-                            <br>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="well well-sm">
-                        <div class="btn-group">
-
-                        </div>
-                        <div class="form-group" style="margin-bottom: 0;">
-
+                            <input id="gav" class="form-control" required="required" name="gav" type="text">
                         </div>
                     </div>
                 </div>
             </div>
-            <button id="calcTax">Calculate My Tax Impact</button>
-            </form>
+            <div class="col-sm-6">
+                <div class="well well-sm">
+                    <div class="form-group">
+                        <div class="btn-group" role="group" aria-label="Property Type">
+                            <br>
+                            <h3>What's your Property Type?</h3>
+                            <br>
+                            <button type="button" class="btn btn-info active" id="residential">Residential</button>
+                            <button type="button" class="btn btn-info" id="commercial">Commercial</button>
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+
+                    </div>
+                </div>
+            </div>
         </div>
+        <br>
+        <input class="btn btn-primary" type="submit" value="Calculate My Tax Impact">
+    </form>
+</div>
 
 
-        <div class="container">
-        </div>
-
-        <!-- Adds jQuery to project -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script src="app.min.js"></script>
-</body>
+<div class="container">
+</div>
