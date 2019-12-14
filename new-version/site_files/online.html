@@ -1,0 +1,74 @@
+<div class="container text-center">
+</div>
+
+<div class="container">
+    <p class="lead">Please use the form below to calculate about how much your property tax bill will be impacted if
+        the new referendum is passed. In order to use the calculator, you will need to know the <strong>GAV - Gross
+            Assessed Value</strong> of your property.</p>
+    <!-- initial development for the  -->
+    <div class="well well-sm">
+        <div class="row">
+
+        </div>
+    </div>
+    <div class="tax-result-container" style="display: none;">
+        <div class="row">
+            <div class="col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8 text-center">
+                <div class="tax-result">
+                    <h3>$ <span id="result"></span> Approximate impact to your annual tax payment for the safety
+                        referendum </h3>
+                </div>
+                <p>
+                    <small>
+                        <em>These values are only estimates, and are based on the MAXIMUM levy amount.</em><br>
+                        The information on which these calculations are based has been obtained from sources
+                        believed to be reliable but it is not necessarily complete and is not guaranteed.
+                        Any tax increases projected are approximate.
+                    </small>
+                </p>
+                <br>
+            </div>
+        </div>
+    </div>
+    <div class="alert alert-danger" style="display: none;">
+        <strong>Error!</strong> Only numbers can be used in GAV box.
+    </div>
+    <form method="POST" action="" accept-charset="UTF-8" id="calculator-form"><input name="_token" type="hidden">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="well well-sm">
+                    <div class="form-group">
+                        <label for="gav">Your Gross Assessed Value:</label>
+                        <div class="input-group" style="display: flex;">
+                            <span class=" input-group-addon">$</span>
+                            <input id=" gav" class="form-control" required="required" name="gav" type="text">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="well well-sm">
+                    <div class="form-group">
+                        <div class="btn-group" role="group" aria-label="Property Type">
+                            <br>
+                            <h3>What's your Property Type?</h3>
+                            <br>
+                            <button type="button" class="btn btn-info active" id="residential">Residential</button>
+                            <button type="button" class="btn btn-info" id="commercial">Commercial</button>
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <input class="btn btn-primary" type="submit" value="Calculate My Tax Impact">
+    </form>
+</div>
+
+
+<div class="container">
+</div>
